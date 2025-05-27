@@ -1,2 +1,2 @@
 # Ignore config files with sensitive data
-config/mail_information.php
+assets\mail_information.php
