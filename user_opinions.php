@@ -12,7 +12,7 @@ use PHPMailer\PHPMailer\Exception;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_processed'])) {
     $opinionId = $_POST['opinion_id'];
     $customMessage = $_POST['custom_message'] ?? '';
-    $mailCredentials = require __DIR__ . 'assets\mail_information.php';
+    $mailCredentials = require 'assets\mail_information.php';
     // Get user info
     $stmt = $pdo->prepare("SELECT yk.*, nd.EMAIL, nd.HO_TEN FROM y_kien_khach_hang yk 
                            JOIN nguoi_dung nd ON yk.MA_NGUOI_DUNG = nd.MA_NGUOI_DUNG 
