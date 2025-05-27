@@ -1,0 +1,2 @@
+# Ignore config files with sensitive data
+config/mail_information.php

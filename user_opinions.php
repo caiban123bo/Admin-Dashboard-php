@@ -12,7 +12,7 @@ use PHPMailer\PHPMailer\Exception;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_processed'])) {
     $opinionId = $_POST['opinion_id'];
     $customMessage = $_POST['custom_message'] ?? '';
-
+    $mailCredentials = require __DIR__ . 'assets\mail_information.php';
     // Get user info
     $stmt = $pdo->prepare("SELECT yk.*, nd.EMAIL, nd.HO_TEN FROM y_kien_khach_hang yk 
                            JOIN nguoi_dung nd ON yk.MA_NGUOI_DUNG = nd.MA_NGUOI_DUNG 
@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_processed'])) {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'ba0139722@gmail.com'; // Your Gmail
-            $mail->Password = 'eeatmbagqvbvrrsr'; // Use Gmail App Password!
+            $mail->Username = $mailCredentials['username'];
+            $mail->Password = $mailCredentials['password'];
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
@@ -84,11 +84,13 @@ $opinions = $stmt->fetchAll();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Ý kiến khách hàng</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
     <div class="layout">
         <?php loadSidebar(); ?>
@@ -109,32 +111,36 @@ $opinions = $stmt->fetchAll();
                 </thead>
                 <tbody>
                     <?php foreach ($opinions as $op): ?>
-                        <tr>
-                            <td><?= $op['MA_Y_KIEN'] ?></td>
-                            <td><?= htmlspecialchars($op['HO_TEN']) ?></td>
-                            <td><?= htmlspecialchars($op['EMAIL']) ?></td>
-                            <td><?= htmlspecialchars($op['NOI_DUNG']) ?></td>
-                            <td><?= $op['NGAY_GUI'] ?></td>
-                            <td><?= $op['TRANG_THAI'] ?></td>
-                            <td>
-                                <?php if ($op['TRANG_THAI'] === 'CHUA_XU_LY'): ?>
-                                    <form method="post" style="display:inline-block;">
-                                        <input type="hidden" name="opinion_id" value="<?= $op['MA_Y_KIEN'] ?>">
-                                        <textarea name="custom_message" placeholder="Optional custom email..."></textarea>
-                                        <button type="submit" name="mark_processed" class="btn">Mark as Processed & Send Email</button>
-                                    </form>
-                                <?php else: ?>
-                                    Processed
-                                <?php endif; ?>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td><?= $op['MA_Y_KIEN'] ?></td>
+                        <td><?= htmlspecialchars($op['HO_TEN']) ?></td>
+                        <td><?= htmlspecialchars($op['EMAIL']) ?></td>
+                        <td><?= htmlspecialchars($op['NOI_DUNG']) ?></td>
+                        <td><?= $op['NGAY_GUI'] ?></td>
+                        <td><?= $op['TRANG_THAI'] ?></td>
+                        <td>
+                            <?php if ($op['TRANG_THAI'] === 'CHUA_XU_LY'): ?>
+                            <form method="post" style="display:inline-block;">
+                                <input type="hidden" name="opinion_id" value="<?= $op['MA_Y_KIEN'] ?>">
+                                <textarea name="custom_message" placeholder="Optional custom email..."></textarea>
+                                <button type="submit" name="mark_processed" class="btn">Mark as Processed & Send
+                                    Email</button>
+                            </form>
+                            <?php else: ?>
+                            Processed
+                            <?php endif; ?>
+                        </td>
+                    </tr>
                     <?php endforeach; ?>
                     <?php if (empty($opinions)): ?>
-                        <tr><td colspan="7">No feedback available.</td></tr>
+                    <tr>
+                        <td colspan="7">No feedback available.</td>
+                    </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </body>
+
 </html>
