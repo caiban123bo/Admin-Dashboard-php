@@ -63,8 +63,9 @@ $coupons = $pdo->query(
             <div class="header">
                 <h1>Quản lý khuyến mãi/sự kiện</h1>
                 <!-- Inline Edit Events -->
-                <h2>Sự kiện</h2>
             </div>
+            <h2>Sự kiện</h2>
+
             <form method="post">
                 <input type="hidden" name="action" value="inline_update_event">
                 <table>

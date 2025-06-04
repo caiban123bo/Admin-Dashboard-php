@@ -73,7 +73,7 @@ if (isset($_GET['edit'])) {
 
         <div class="main-content">
             <div class="header">
-                <h1>Manage Order Details</h1>
+                <h1>Quản lý đơn hàng</h1>
             </div>
             <table>
                 <thead>
@@ -93,11 +93,11 @@ if (isset($_GET['edit'])) {
                         <td><?= $row['MA_DON_HANG'] ?></td>
                         <td><?= $row['MA_SAN_PHAM'] . ' - ' . htmlspecialchars($row['TEN_SAN_PHAM']) ?></td>
                         <td><?= $row['SO_LUONG'] ?></td>
-                        <td><?= $row['DON_GIA'] ?></td>
+                        <td><?= number_format($row['DON_GIA'], 0, ',', '.') ?> VND</td>
                         <td>
-                            <a href="?edit=<?= $row['MA_CHI_TIET_DON_HANG'] ?>">Edit</a> |
+                            <a href="?edit=<?= $row['MA_CHI_TIET_DON_HANG'] ?>" style="text-decoration:none;color:cyan">Edit</a> |
                             <a href="?delete=<?= $row['MA_CHI_TIET_DON_HANG'] ?>"
-                                onclick="return confirm('Delete this entry?')">Delete</a>
+                                onclick="return confirm('Delete this entry?')"style="text-decoration:none;color:cyan">Delete</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

@@ -217,7 +217,7 @@ function findProductById($id, $products) {
                         value="<?php echo $max; ?>">
                     <button class="btn btn-primary" type="submit">Filter</button>
                 </form>
-
+                <h2>Xuất doanh thu sản phẩm</h2>
                 <form method="get" class="inline">
                     <label>Ngày bắt đầu: <input type="date" name="start_date"></label>
                     <label>Ngày kết thúc: <input type="date" name="end_date"></label>
@@ -231,7 +231,7 @@ function findProductById($id, $products) {
                     <button type="submit" name="export" value="excel">Export to Excel</button>
                     <button type="submit" name="export" value="pdf">Export to PDF</button>
                 </form>
-
+                <h2>Quản lý sản phẩm</h2>
                 <form method="post">
                     <input type="hidden" name="action" value="update">
                     <table>
@@ -254,8 +254,11 @@ function findProductById($id, $products) {
                                 <td><?php echo $p['id']; ?><input type="hidden" name="id"
                                         value="<?php echo $p['id']; ?>"></td>
                                 <td><input name="name" value="<?php echo htmlspecialchars($p['name']); ?>"></td>
-                                <td><input type="number" name="price" step="1000" value="<?php echo $p['price']; ?>">
-                                    VND</td>
+                                <td>
+                                    <input type="number" name="price" step="1000" value="<?php echo $p['price']; ?>">
+                                    <?php echo number_format($p['price'], 0, ',', '.'); ?> VND
+                                </td>
+
                                 <td><input type="number" name="stock" value="<?php echo $p['stock']; ?>"></td>
                                 <td><?php echo $p['sold']; ?></td>
                                 <td>
