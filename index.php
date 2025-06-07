@@ -139,7 +139,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'pdf') {
 }
 
 
-// Handle Add / Edit / Sell / Remove
+// Handle Add / Edit / Remove
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
     if ($action === 'add') {
@@ -149,13 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE SAN_PHAM SET TEN_SAN_PHAM=?, GIA_BAN=?, SO_LUONG_TON=?, MA_DANH_MUC=?, MO_TA=?, HINH_ANH=? WHERE MA_SAN_PHAM=?");
         $stmt->execute([$_POST['name'], $_POST['price'], $_POST['stock'], $_POST['category'], $_POST['description'], $_POST['image'], $_POST['id']]);
     }
-    header("Location: index.php");
-    exit;
-}
-
-if (isset($_GET['sell_id'])) {
-    $id = $_GET['sell_id'];
-    $pdo->exec("UPDATE SAN_PHAM SET SO_LUONG_TON = SO_LUONG_TON - 1 WHERE MA_SAN_PHAM = $id AND SO_LUONG_TON > 0");
     header("Location: index.php");
     exit;
 }
@@ -251,37 +244,47 @@ function findProductById($id, $products) {
                         <tbody>
                             <?php foreach ($paginated as $p): ?>
                             <tr>
-                                <td><?php echo $p['id']; ?><input type="hidden" name="id"
-                                        value="<?php echo $p['id']; ?>"></td>
-                                <td><input name="name" value="<?php echo htmlspecialchars($p['name']); ?>"></td>
-                                <td>
-                                    <input type="number" name="price" step="1000" value="<?php echo $p['price']; ?>">
-                                    <?php echo number_format($p['price'], 0, ',', '.'); ?> VND
-                                </td>
-
-                                <td><input type="number" name="stock" value="<?php echo $p['stock']; ?>"></td>
-                                <td><?php echo $p['sold']; ?></td>
-                                <td>
-                                    <select name="category">
-                                        <?php foreach ($categories as $id => $catName): ?>
-                                        <option value="<?php echo $id; ?>"
-                                            <?php echo ($p['category_id'] == $id) ? 'selected' : ''; ?>>
-                                            <?php echo htmlspecialchars($catName); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </td>
-                                <td><textarea name="description" onclick="this.rows=5;" onblur="this.rows=1;"
-                                        rows="1"><?php echo htmlspecialchars($p['description']); ?></textarea></td>
-                                <td><input type="text" name="image"
-                                        value="<?php echo htmlspecialchars($p['image']); ?>"></td>
-                                <td>
-                                    <button class="btn btn-primary" type="submit">Apply Edit</button>
-                                    <a class="btn btn-primary" href="?sell_id=<?php echo $p['id']; ?>">Sell</a>
-                                    <a class="btn btn-primary" href="?remove_id=<?php echo $p['id']; ?>">Remove</a>
-                                </td>
+                                <form method="post">
+                                    <td>
+                                        <?= $p['id'] ?>
+                                        <input type="hidden" name="action" value="update">
+                                        <input type="hidden" name="id" value="<?= $p['id'] ?>">
+                                    </td>
+                                    <td><input name="name" value="<?= htmlspecialchars($p['name']) ?>"></td>
+                                    <td>
+                                        <input type="number" name="price" step="1000" value="<?= $p['price'] ?>"
+                                            style="width: 120px;">
+                                        <?= number_format($p['price'], 0, ',', '.') ?> VND
+                                    </td>
+                                    <td><input type="number" name="stock" value="<?= $p['stock'] ?>"
+                                            style="width: 80px;"></td>
+                                    <td><?= $p['sold'] ?></td>
+                                    <td>
+                                        <select name="category">
+                                            <?php foreach ($categories as $id => $catName): ?>
+                                            <option value="<?= $id ?>"
+                                                <?= ($p['category_id'] == $id) ? 'selected' : '' ?>>
+                                                <?= htmlspecialchars($catName) ?>
+                                            </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <textarea name="description" onclick="this.rows=5;" onblur="this.rows=1;"
+                                            rows="1"><?= htmlspecialchars($p['description']) ?></textarea>
+                                    </td>
+                                    <td><input type="text" name="image" value="<?= htmlspecialchars($p['image']) ?>">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" type="submit">Apply Edit</button>
+                                        <a class="btn btn-primary" href="?remove_id=<?= $p['id'] ?>"
+                                            onclick="return confirm('Remove this product?')">Remove</a>
+                                    </td>
+                                </form>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
+
                     </table>
                 </form>
                 <div class="page-nav">

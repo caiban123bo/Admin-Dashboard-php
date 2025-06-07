@@ -16,11 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['dia_chi'], $_POST['trang_thai']
         ]);
     } elseif ($action === 'update') {
-        $stmt = $pdo->prepare("UPDATE NGUOI_DUNG SET HO_TEN=?, EMAIL=?, SO_DIEN_THOAI=?, DIA_CHI=?, TRANG_THAI=? WHERE MA_NGUOI_DUNG=?");
-        $stmt->execute([
-            $_POST['ho_ten'], $_POST['email'], $_POST['so_dien_thoai'],
-            $_POST['dia_chi'], $_POST['trang_thai'], $_POST['id']
-        ]);
+    $stmt = $pdo->prepare("UPDATE NGUOI_DUNG SET HO_TEN=?, EMAIL=?, SO_DIEN_THOAI=?, DIA_CHI=?, TRANG_THAI=? WHERE MA_NGUOI_DUNG=?");
+    $stmt->execute([
+        $_POST['ho_ten'], $_POST['email'], $_POST['so_dien_thoai'],
+        $_POST['dia_chi'], $_POST['trang_thai'], $_POST['id']
+    ]);
     }
     header("Location: users.php");
     exit;
@@ -37,16 +37,20 @@ $users = $pdo->query("SELECT * FROM NGUOI_DUNG")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Quản lý người dùng</title>
     <link rel="stylesheet" href="assets\style.css">
 </head>
+
 <body>
     <div class="layout">
         <?php loadSidebar(); ?>
         <div class="main-content">
-            <div class="header"><h1>Quản lý người dùng</h1></div>
+            <div class="header">
+                <h1>Quản lý người dùng</h1>
+            </div>
             <form method="post">
                 <input type="hidden" name="action" value="update">
                 <table>
@@ -64,20 +68,32 @@ $users = $pdo->query("SELECT * FROM NGUOI_DUNG")->fetchAll(PDO::FETCH_ASSOC);
                     <tbody>
                         <?php foreach ($users as $user): ?>
                         <tr>
-                            <td><?php echo $user['MA_NGUOI_DUNG']; ?><input type="hidden" name="id" value="<?php echo $user['MA_NGUOI_DUNG']; ?>"></td>
-                            <td><input name="ho_ten" value="<?php echo htmlspecialchars($user['HO_TEN']); ?>"></td>
-                            <td><input name="email" value="<?php echo htmlspecialchars($user['EMAIL']); ?>"></td>
-                            <td><input name="so_dien_thoai" value="<?php echo htmlspecialchars($user['SO_DIEN_THOAI']); ?>"></td>
-                            <td><input name="dia_chi" value="<?php echo htmlspecialchars($user['DIA_CHI']); ?>"></td>
-                            <td><input name="trang_thai" value="<?php echo htmlspecialchars($user['TRANG_THAI']); ?>"></td>
-                            <td>
-                                <button class="btn btn-primary" type="submit">Apply Edit</button>
-                                <a class="btn btn-primary" href="?remove_id=<?php echo $user['MA_NGUOI_DUNG']; ?>">Remove</a>
-                            </td>
+                            <form method="post">
+                                <td>
+                                    <?= $user['MA_NGUOI_DUNG'] ?>
+                                    <input type="hidden" name="action" value="update">
+                                    <input type="hidden" name="id" value="<?= $user['MA_NGUOI_DUNG'] ?>">
+                                </td>
+                                <td><input name="ho_ten" value="<?= htmlspecialchars($user['HO_TEN']) ?>"></td>
+                                <td><input name="email" value="<?= htmlspecialchars($user['EMAIL']) ?>"></td>
+                                <td><input name="so_dien_thoai" value="<?= htmlspecialchars($user['SO_DIEN_THOAI']) ?>">
+                                </td>
+                                <td><input name="dia_chi" value="<?= htmlspecialchars($user['DIA_CHI']) ?>"></td>
+                                <td><input name="trang_thai" value="<?= htmlspecialchars($user['TRANG_THAI']) ?>"></td>
+                                <td>
+                                    <button class="btn btn-primary" type="submit">Apply Edit</button>
+                                    <a class="btn btn-primary" href="?remove_id=<?= $user['MA_NGUOI_DUNG'] ?>"
+                                        onclick="return confirm('Are you sure you want to delete this user?')">
+                                        Remove
+                                    </a>
+                                </td>
+                            </form>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
+
                 </table>
+
             </form>
             <h2>Thêm người dùng</h2>
             <form method="post" class="inline">
@@ -93,6 +109,7 @@ $users = $pdo->query("SELECT * FROM NGUOI_DUNG")->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </body>
+
 </html>
 
 </html>

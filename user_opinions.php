@@ -117,11 +117,11 @@ $opinions = $stmt->fetchAll();
                             <form method="post" style="display:inline-block;">
                                 <input type="hidden" name="opinion_id" value="<?= $op['MA_Y_KIEN'] ?>">
                                 <textarea name="custom_message" placeholder="Optional custom email..."></textarea>
-                                <button type="submit" name="mark_processed" class="btn">Mark as Processed & Send
+                                <button type="submit" name="mark_processed" class="btn">Đánh dấu hoành thành & Gửi
                                     Email</button>
                             </form>
                             <?php else: ?>
-                            Processed
+                            Đã xử lý
                             <?php endif; ?>
                         </td>
                     </tr>
