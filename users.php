@@ -98,12 +98,12 @@ $users = $pdo->query("SELECT * FROM NGUOI_DUNG")->fetchAll(PDO::FETCH_ASSOC);
             <h2>Thêm người dùng</h2>
             <form method="post" class="inline">
                 <input type="hidden" name="action" value="add">
-                <input name="ho_ten" placeholder="Full Name" required>
+                <input name="ho_ten" placeholder="Họ & tên" required>
                 <input name="email" type="email" placeholder="Email" required>
-                <input name="so_dien_thoai" placeholder="Phone" required>
-                <input name="mat_khau" type="password" placeholder="Password" required>
-                <input name="dia_chi" placeholder="Address">
-                <input name="trang_thai" placeholder="Status">
+                <input name="so_dien_thoai" placeholder="SĐT" required>
+                <input name="mat_khau" type="Mật khẩu" placeholder="Password" required>
+                <input name="dia_chi" placeholder="Địa chỉ">
+                <input name="trang_thai" placeholder="Trạng thái">
                 <button class="btn btn-primary" type="submit">Add</button>
             </form>
         </div>

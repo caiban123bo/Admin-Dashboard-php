@@ -288,9 +288,8 @@ if ($best_deal) {
                 <input type="hidden" name="products" value="<?= implode('|', $d['products']) ?>">
                 <p><b><?=$d['name']?> (<?=$d['email']?>)</b></p>
                 <?php 
-    // extract only the names
-    $names = array_column($d['products'], 'name'); 
-?>
+                    $names = array_column($d['products'], 'name'); 
+                ?>
                 <p>Favorites: <?= htmlspecialchars(implode(', ', $names)) ?></p> <label>Mã giảm giá:
                     <select name="promo">
                         <option value="auto">Tự động</option>
