@@ -116,7 +116,7 @@ $opinions = $stmt->fetchAll();
                             <?php if ($op['TRANG_THAI'] === 'CHUA_XU_LY'): ?>
                             <form method="post" style="display:inline-block;">
                                 <input type="hidden" name="opinion_id" value="<?= $op['MA_Y_KIEN'] ?>">
-                                <textarea name="custom_message" placeholder="Optional custom email..."></textarea>
+                                <textarea name="custom_message" placeholder="Nhập mail (optional)..."></textarea>
                                 <button type="submit" name="mark_processed" class="btn">Đánh dấu hoành thành & Gửi
                                     Email</button>
                             </form>

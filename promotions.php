@@ -212,19 +212,19 @@ $coupons = $pdo->query(
             <h3>Thêm sự kiện</h3>
             <form method="post" class="inline">
                 <input type="hidden" name="action" value="add_event">
-                <input name="name" placeholder="Event Name" required>
+                <input name="name" placeholder="Tên sự kiện" required>
                 <input type="date" name="start" required>
                 <input type="date" name="end" required>
-                <input name="description" placeholder="Description">
-                <input type="number" step="0.01" name="discount" placeholder="Discount (%)" required>
+                <input name="description" placeholder="Mô tả">
+                <input type="number" step="0.01" name="discount" placeholder="Giảm (%)" required>
                 <button class="btn btn-primary" type="submit">Add</button>
             </form>
             <h3>Thêm khuyến mãi</h3>
             <form method="post" class="inline">
                 <input type="hidden" name="action" value="add_coupon">
-                <input name="code" placeholder="Code" required>
-                <input type="number" name="value" step="1000" placeholder="Value VND" required>
-                <input type="number" name="usage_limit" placeholder="Usage Limit" required>
+                <input name="code" placeholder="Mã" required>
+                <input type="number" name="value" step="1000" placeholder="Giá trị giảm" required>
+                <input type="number" name="usage_limit" placeholder="Số lần sử dụng" required>
                 <input type="date" name="expiry" required>
                 <button class="btn btn-primary" type="submit">Add</button>
             </form>

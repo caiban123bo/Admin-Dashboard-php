@@ -75,11 +75,11 @@ $orderDetails = $stmt->fetchAll();
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Order ID</th>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Status</th>
+                            <th>Mã đơn hàng</th>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá</th>
+                            <th>Trạng thái</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -95,7 +95,7 @@ $orderDetails = $stmt->fetchAll();
                                 </td>
                                 <td>
                                     <input name="ma_san_pham" value="<?= $row['MA_SAN_PHAM'] ?>" style="width:80px;">
-                                    — <?= htmlspecialchars($row['TEN_SAN_PHAM']) ?>
+                                    - <?= htmlspecialchars($row['TEN_SAN_PHAM']) ?>
                                 </td>
                                 <td>
                                     <input type="number" name="so_luong" value="<?= $row['SO_LUONG'] ?>"
