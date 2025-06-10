@@ -219,7 +219,7 @@ $coupons = $pdo->query(
                 <input type="number" step="0.01" name="discount" placeholder="Giảm (%)" required>
                 <button class="btn btn-primary" type="submit">Add</button>
             </form>
-            <h3>Thêm khuyến mãi</h3>
+            <h3>Thêm mã giảm giá</h3>
             <form method="post" class="inline">
                 <input type="hidden" name="action" value="add_coupon">
                 <input name="code" placeholder="Mã" required>
